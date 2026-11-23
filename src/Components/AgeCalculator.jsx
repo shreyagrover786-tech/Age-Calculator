@@ -23,7 +23,11 @@ function AgeCalculator() {
             years--;
             months = months + 12;
         }
-        setAge({ years, months, days });
+        const totalDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+        const bornDay = birthDate.toLocaleDateString('en-US', {weekday: 'long'});
+        const totalMonths = years * 12 + months;
+
+        setAge({ years, months, days, totalDays, bornDay, totalMonths });
     };
     const handleClear = () => {
         setDob("");
@@ -51,9 +55,14 @@ function AgeCalculator() {
                     Clear
                 </button>
                 {age && (
+                    <div>
                     <h2 style={{marginTop: "20px", color: "#333"}}>
                         {age.years}years, {age.months}months, {age.days}days!
                         </h2>
+                        <p>You were born on: {age.bornDay}</p>
+                        <p>Total Months: {age.totalMonths}</p>
+                        <p>You have lived for: {age.totalDays}</p>
+                        </div>
                 )}   
             </div>
         </div>     
